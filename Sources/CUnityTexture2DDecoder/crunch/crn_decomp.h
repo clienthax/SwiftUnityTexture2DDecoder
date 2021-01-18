@@ -485,7 +485,7 @@ namespace crnd
       template <typename T>
       inline void destruct(T* p)
       {
-         p;
+         (void)p;
          p->~T();
       }
 
@@ -650,7 +650,7 @@ namespace crnd
       {
          const uint32 num = reinterpret_cast<uint32*>(p)[-1];
          const uint32 num_check = reinterpret_cast<uint32*>(p)[-2];
-         num_check;
+         (void)num_check;
          CRND_ASSERT(num && (num == ~num_check));
 
          helpers::destruct_array(p, num);
@@ -2402,7 +2402,7 @@ namespace crnd
 
    void crnd_output_debug_string(const char* p)
    {
-      p;
+      (void)p;
 #ifdef CRND_DEVEL
       OutputDebugStringA(p);
 #endif
@@ -2417,7 +2417,7 @@ namespace crnd
 
    static void* crnd_default_realloc(void* p, size_t size, size_t* pActual_size, bool movable, void* pUser_data)
    {
-      pUser_data;
+      (void)pUser_data;
 
       void* p_new;
 
@@ -2476,7 +2476,7 @@ namespace crnd
 
    static size_t crnd_default_msize(void* p, void* pUser_data)
    {
-      pUser_data;
+      (void)pUser_data;
 #ifdef _WIN32
       return p ? _msize(p) : 0;
 #else
@@ -2684,7 +2684,7 @@ namespace crnd
    // TODO: tmp_header isn't used/This function is a helper to support old headers.
    const crn_header* crnd_get_header(crn_header& tmp_header, const void* pData, uint32 data_size)
    {
-      tmp_header;
+      (void)tmp_header;
 
       if ((!pData) || (data_size < sizeof(crn_header)))
          return NULL;
@@ -3704,7 +3704,7 @@ namespace crnd
          void** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
          uint32 level_index)
       {
-         dst_size_in_bytes;
+         (void)dst_size_in_bytes;
 
 #ifdef CRND_BUILD_DEBUG
          for (uint32 f = 0; f < m_pHeader->m_faces; f++)
@@ -4139,7 +4139,7 @@ namespace crnd
 
       bool unpack_dxt1(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
       {
-         dst_size_in_bytes;
+         (void)dst_size_in_bytes;
 
          uint32 chunk_encoding_bits = 1;
 
@@ -4325,7 +4325,7 @@ namespace crnd
 
       bool unpack_dxt5(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
       {
-         dst_size_in_bytes;
+         (void)dst_size_in_bytes;
 
          uint32 chunk_encoding_bits = 1;
 
@@ -4468,7 +4468,7 @@ namespace crnd
 
       bool unpack_dxn(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
       {
-         dst_size_in_bytes;
+         (void)dst_size_in_bytes;
 
          uint32 chunk_encoding_bits = 1;
 
@@ -4610,7 +4610,7 @@ namespace crnd
 
       bool unpack_dxt5a(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
       {
-         dst_size_in_bytes;
+         (void)dst_size_in_bytes;
 
          uint32 chunk_encoding_bits = 1;
 

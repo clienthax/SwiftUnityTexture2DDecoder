@@ -1968,7 +1968,7 @@ static void* crnd_default_realloc(void* p, size_t size, size_t* pActual_size, bo
 }
 
 static size_t crnd_default_msize(void* p, void* pUser_data) {
-  pUser_data;
+  (void)pUser_data;
 #ifdef _WIN32
   return p ? _msize(p) : 0;
 #else
