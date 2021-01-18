@@ -9,7 +9,7 @@ struct color_bgra
 	uint8_t a;
 };
 
-const color_bgra g_black_color{ 0, 0, 0, 255 };
+const color_bgra g_black_color = { 0, 0, 0, 255 };
 
 int decode_bc1(const uint8_t* data, const long w, const long h, uint32_t* image);
 void decode_bc3_alpha(const uint8_t* data, uint32_t* outbuf, int channel);

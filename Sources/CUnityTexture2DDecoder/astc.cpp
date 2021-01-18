@@ -274,8 +274,9 @@ void decode_intseq(const uint8_t *buf, int offset, const int a, const int b, con
                 uint_fast64_t d = bit_reverse_u64(getbits64(buf, p - now_size, now_size), now_size);
                 int x =
                   (d >> b & 3) | (d >> b * 2 & 0xc) | (d >> b * 3 & 0x10) | (d >> b * 4 & 0x60) | (d >> b * 5 & 0x80);
-                for (int j = 0; j < 5 && n < count; j++, n++)
-                    out[n] = { static_cast<int>(d >> (mt[j] + b * j) & mask), TritsTable[j][x]};
+                for (int j = 0; j < 5 && n < count; j++, n++) {
+                    out[n] = (IntSeqData){ static_cast<int>(d >> (mt[j] + b * j) & mask), TritsTable[j][x]};
+                }
             }
         } else {
             for (int i = 0, p = offset; i < block_count; i++, p += block_size) {
@@ -283,7 +284,7 @@ void decode_intseq(const uint8_t *buf, int offset, const int a, const int b, con
                 int x =
                   (d >> b & 3) | (d >> b * 2 & 0xc) | (d >> b * 3 & 0x10) | (d >> b * 4 & 0x60) | (d >> b * 5 & 0x80);
                 for (int j = 0; j < 5 && n < count; j++, n++)
-                    out[n] = { static_cast<int>(d >> (mt[j] + b * j) & mask), TritsTable[j][x]};
+                    out[n] = (IntSeqData){ static_cast<int>(d >> (mt[j] + b * j) & mask), TritsTable[j][x]};
             }
         }
     } else if (a == 5) {
@@ -299,23 +300,23 @@ void decode_intseq(const uint8_t *buf, int offset, const int a, const int b, con
                 uint_fast64_t d = bit_reverse_u64(getbits64(buf, p - now_size, now_size), now_size);
                 int x = (d >> b & 7) | (d >> b * 2 & 0x18) | (d >> b * 3 & 0x60);
                 for (int j = 0; j < 3 && n < count; j++, n++)
-                    out[n] = { static_cast<int>(d >> (mq[j] + b * j) & mask), QuintsTable[j][x]};
+                    out[n] = (IntSeqData){ static_cast<int>(d >> (mq[j] + b * j) & mask), QuintsTable[j][x]};
             }
         } else {
             for (int i = 0, p = offset; i < block_count; i++, p += block_size) {
                 uint_fast64_t d = getbits64(buf, p, (i < block_count - 1) ? block_size : last_block_size);
                 int x = (d >> b & 7) | (d >> b * 2 & 0x18) | (d >> b * 3 & 0x60);
                 for (int j = 0; j < 3 && n < count; j++, n++)
-                    out[n] = { static_cast<int>(d >> (mq[j] + b * j) & mask), QuintsTable[j][x]};
+                    out[n] = (IntSeqData){ static_cast<int>(d >> (mq[j] + b * j) & mask), QuintsTable[j][x]};
             }
         }
     } else {
         if (reverse)
             for (int p = offset - b; n < count; n++, p -= b)
-                out[n] = {bit_reverse_u8(getbits(buf, p, b), b), 0};
+                out[n] = (IntSeqData){bit_reverse_u8(getbits(buf, p, b), b), 0};
         else
             for (int p = offset; n < count; n++, p += b)
-                out[n] = {getbits(buf, p, b), 0};
+                out[n] = (IntSeqData){getbits(buf, p, b), 0};
     }
 }
 
