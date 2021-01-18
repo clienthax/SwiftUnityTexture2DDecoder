@@ -22,5 +22,6 @@ let package = Package(
 		.testTarget(
 			name: "SwiftUnityTexture2DDecoderTests",
 			dependencies: ["SwiftUnityTexture2DDecoder"]),
-	]
+	],
+	cxxLanguageStandard: .cxx11
 )
