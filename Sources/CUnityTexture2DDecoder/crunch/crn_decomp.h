@@ -380,11 +380,7 @@ namespace crnd
 #ifdef _WIN64
    typedef uint64 ptr_bits;
 #else
-   #ifdef __x86_64__
-      typedef uint64 ptr_bits;
-   #else
-      typedef uint32 ptr_bits;
-   #endif
+   typedef uintptr_t ptr_bits;
 #endif
 
    template<typename T> struct int_traits { enum { cMin = crnd::cINT32_MIN, cMax = crnd::cINT32_MAX, cSigned = true }; };
