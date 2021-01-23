@@ -1,7 +1,7 @@
 import CUnityTexture2DDecoder
 
 @inlinable
-public func decodeUnityTexture2D(_ data: UnsafeRawPointer, format: TextureFormat, width: Int, height: Int, into output: UnsafeMutableRawPointer) -> Bool {
+public func decodeUnityTexture2D(_ data: UnsafeRawPointer, format: TextureFormat, width: Int32, height: Int32, into output: UnsafeMutableRawPointer) -> Bool {
 	switch format {
 	case .dxt1:
 		return DecodeDXT1(data, width, height, output)
@@ -57,14 +57,14 @@ public func decodeUnityTexture2D(_ data: UnsafeRawPointer, format: TextureFormat
 }
 
 @inlinable
-public func decodeUnityTexture2D(_ data: [UInt8], format: TextureFormat, width: Int, height: Int) -> [UInt8]? {
+public func decodeUnityTexture2D(_ data: [UInt8], format: TextureFormat, width: Int32, height: Int32) -> [UInt8]? {
 	if width == 0 && height == 0 {
 		return []
 	}
-	let out = [UInt8](unsafeUninitializedCapacity: width * height * 4) { (outPtr, len) in
+	let out = [UInt8](unsafeUninitializedCapacity: Int(width * height)) { (outPtr, len) in
 		data.withUnsafeBytes { inPtr in
 			if decodeUnityTexture2D(inPtr.baseAddress!, format: format, width: width, height: height, into: outPtr.baseAddress!) {
-				len = width * height * 4
+				len = Int(width * height) * 4
 			} else {
 				len = 0
 			}
